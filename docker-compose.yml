@@ -1,0 +1,16 @@
+services:
+  amen-share-x:
+    container_name: amen-share-x
+    image: amen-edu/amen-share-x # or ghcr.io/amen-edu/amen-share-x
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    environment:
+      - TRUST_PROXY=false # Set to true if a reverse proxy is in front of the container
+    volumes:
+      - "./data:/opt/app/backend/data:rw,z"
+      - "./data/images:/opt/app/frontend/public/img:rw,z"
+  #      - "./config.yaml:/opt/app/config.yaml" # Add this line, if you want to configure amen-share via config file and not via UI
+
+  # To add ClamAV, to scan your shares for malicious files,
+  # see https://stonith404.github.io/amen-share/setup/integrations/#clamav-docker-only
